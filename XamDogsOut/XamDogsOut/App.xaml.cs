@@ -1,8 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XamDogsOut.Services;
-using XamDogsOut.Views;
+﻿using Xamarin.Forms;
 
 namespace XamDogsOut
 {
@@ -12,8 +8,6 @@ namespace XamDogsOut
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
