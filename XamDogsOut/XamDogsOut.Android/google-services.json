@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "990274547469",
+    "project_id": "xamdogsout",
+    "storage_bucket": "xamdogsout.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990274547469:android:734bad9f5df887923e8a44",
+        "android_client_info": {
+          "package_name": "com.companyname.xamdogsout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990274547469-i535eoorek0v1bh7u5350k29l7cd1m6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmrQNTvPQd05xuBKdmedwTRFPYC08Is9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990274547469-i535eoorek0v1bh7u5350k29l7cd1m6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
