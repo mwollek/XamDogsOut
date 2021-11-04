@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:XamDogsOut.ViewModels"
+             x:Class="XamDogsOut.Views.AuthPage">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:AuthVM x:Key="vm"></vm:AuthVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout  
+        BindingContext="{StaticResource vm}"
+        VerticalOptions="Center"
+        Margin="15"
+>
+        <Image 
+            x:Name="iconImage" 
+            Aspect="AspectFit" 
+            HorizontalOptions="FillAndExpand" 
+            Margin="0, 0, 0, 50">
+        </Image>
+        <Entry 
+            Text="{Binding Email}"
+            x:Name="emailEntry"
+            Placeholder="Email"
+            Keyboard="Email"
+            TextColor="{StaticResource defaultBlue}"
+            
+        ></Entry>
+        <Entry 
+            Text="{Binding Password}"
+            x:Name="passwordEntry"
+            Placeholder="Password"
+            IsPassword="True"
+            TextColor="{StaticResource defaultBlue}"
+            
+        ></Entry>
+
+        <Button
+            Command="{Binding LoginCommand}"
+            Style="{StaticResource defaultButton}"
+            x:Name="loginButton"
+            Text="Login"
+            CommandParameter="{Binding EntriesHaveText}"
+        ></Button>
+
+        <Button
+            Command="{Binding RegisterNavigationCommand}"
+            Style="{StaticResource defaultButton}"
+            x:Name="registerNavigationButton"
+            Text="Register">
+        </Button>
+    </StackLayout>
+
+</ContentPage>

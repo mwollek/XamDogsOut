@@ -7,7 +7,15 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
+            <Color x:Key="pacificBlueColor">#42A6BF</Color>
+            <Color x:Key="defaultBlue">#3F84E5</Color>
             <Color x:Key="Primary">#2196F3</Color>
+
+            <Style x:Key ="defaultButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource defaultBlue}"></Setter>
+                <Setter Property="TextColor" Value="White"></Setter>
+            </Style>
+            
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
