@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:XamDogsOut.ViewModels"
+             x:Class="XamDogsOut.Views.RegisterPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:RegisterVM x:Key="vm"></vm:RegisterVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Margin="15"
+            VerticalOptions="Center"
+            BindingContext="{StaticResource vm}">
+            <Image 
+                x:Name="iconImage" >
+            </Image>
+            
+            <Entry
+                Text="{Binding Email}"
+                Placeholder="E-mail"
+                Keyboard="Email">
+            </Entry>
+            
+            <Entry
+                Text="{Binding Password}"
+                Placeholder="Password"
+                IsPassword="True">
+                
+            </Entry>
+            
+            <Entry
+                Text="{Binding ConfirmedPassword}"
+                Placeholder="Confirm password"
+                IsPassword="True">
+            </Entry>
+
+            <Button 
+                Text="Register"
+                x:Name="registerButton"
+                Margin="0, 20, 0, 0"
+                Command="{Binding RegisterCommand}"
+                CommandParameter="{Binding RegisterIsReady}">
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
