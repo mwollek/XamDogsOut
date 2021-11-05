@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MvvmHelpers;
+using System.ComponentModel;
 using Xamarin.Forms;
 using XamDogsOut.Services;
 using XamDogsOut.Views;
@@ -6,19 +7,33 @@ using XamDogsOut.Views;
 namespace XamDogsOut.ViewModels
 {
 
-    public class AuthVM : INotifyPropertyChanged
+    public class AuthVM : BaseViewModel
     {
 
         public Command LoginCommand { get; set; }
         public Command RegisterNavigationCommand { get; set; }
 
         private string email;
-        public string Email { get { return email; } set { email = value; OnPropertyChanged("EntriesHaveText"); } }
+        public string Email 
+        {
+            get => email;
+            set 
+            {
+                SetProperty(ref email, value);
+                OnPropertyChanged("EntriesHaveText"); 
+            } 
+        }
 
         private string password;
-        public string Password { get { return password; } set { password = value; OnPropertyChanged("EntriesHaveText"); } }
-
-        private bool entriesHaveText;
+        public string Password 
+        {
+            get => password;
+            set 
+            {
+                SetProperty(ref password, value);
+                OnPropertyChanged("EntriesHaveText"); 
+            } 
+        }
         public bool EntriesHaveText
         {
             get
@@ -30,7 +45,6 @@ namespace XamDogsOut.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
         public AuthVM()
         {
             LoginCommand = new Command<bool>(Login, CanLogin);
@@ -40,24 +54,19 @@ namespace XamDogsOut.ViewModels
 
         public async void RegisterNavigation()
         {
-           await App.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+            await App.Current.MainPage.Navigation.PushAsync(new RegisterPage());
         }
         public async void Login(bool parameter)
         {
             bool result = await Auth.LoginUserAsync(Email, Password);
             if (result)
             {
-                await App.Current.MainPage.Navigation.PushAsync(new MapPage());
+                await Shell.Current.GoToAsync($"//{nameof(MapPage)}");
             }
         }
         private bool CanLogin(bool parameter)
         {
             return EntriesHaveText;
-        }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

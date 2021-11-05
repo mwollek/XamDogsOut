@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvvmHelpers;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using XamDogsOut.Services;
@@ -6,7 +7,7 @@ using XamDogsOut.Views;
 
 namespace XamDogsOut.ViewModels
 {
-    public class RegisterVM : INotifyPropertyChanged
+    public class RegisterVM : BaseViewModel
     {
 
         public Command RegisterCommand { get; set; }
@@ -14,11 +15,10 @@ namespace XamDogsOut.ViewModels
         private string email;
         public string Email
         {
-            get { return email; }
+            get => email;
             set
             {
-                email = value;
-                OnPropertyChanged("Email");
+                SetProperty(ref email, value);
                 OnPropertyChanged("RegisterIsReady");
             }
         }
@@ -26,11 +26,10 @@ namespace XamDogsOut.ViewModels
         private string password;
         public string Password
         {
-            get { return password; }
+            get => password;
             set
             {
-                password = value;
-                OnPropertyChanged("Password");
+                SetProperty(ref password, value);
                 OnPropertyChanged("RegisterIsReady");
             }
         }
@@ -38,11 +37,10 @@ namespace XamDogsOut.ViewModels
         private string confirmedPassword;
         public string ConfirmedPassword
         {
-            get { return confirmedPassword; }
+            get => confirmedPassword;
             set
             {
-                confirmedPassword = value;
-                OnPropertyChanged("ConfirmedPassword");
+                SetProperty(ref confirmedPassword, value);
                 OnPropertyChanged("RegisterIsReady");
             }
         }
@@ -63,36 +61,22 @@ namespace XamDogsOut.ViewModels
             get
             {
                 if (Password != null && Email != null)
-                {
                     return Password.Equals(ConfirmedPassword);
 
-                }
                 return false;
             }
         }
 
-        public bool RegisterIsReady
-        {
-            get
-            {
-                return PasswordsMatches && EntriesHaveText;
-            }
-        }
+        public bool RegisterIsReady => PasswordsMatches && EntriesHaveText;
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public RegisterVM()
         {
             RegisterCommand = new Command<bool>(Register, CanRegister);
         }
 
-
-
-        private bool CanRegister(bool param)
-        {
-            return param;
-        }
+        private bool CanRegister(bool param) => param;
 
         private async void Register(bool param)
         {
@@ -101,11 +85,6 @@ namespace XamDogsOut.ViewModels
             {
                 await App.Current.MainPage.Navigation.PushAsync(new MapPage());
             }
-        }
-
-        private void OnPropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }
