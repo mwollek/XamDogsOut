@@ -13,7 +13,7 @@ namespace XamDogsOut.ViewModels
         public Command LoginCommand { get; set; }
         public Command RegisterNavigationCommand { get; set; }
 
-        private string email;
+        private string email = "mw@gmail.com";
         public string Email 
         {
             get => email;
@@ -24,7 +24,7 @@ namespace XamDogsOut.ViewModels
             } 
         }
 
-        private string password;
+        private string password = "123123";
         public string Password 
         {
             get => password;
