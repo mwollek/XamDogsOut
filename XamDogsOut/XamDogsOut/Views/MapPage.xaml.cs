@@ -8,19 +8,17 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using XamDogsOut.Services;
 
 namespace XamDogsOut.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage : ContentPage
     {
-        private Geocoder geocoder;
-        private CancellationTokenSource cts;
-
         public MapPage()
         {
             InitializeComponent();
-            geocoder = new Geocoder();
+            
         }
 
         protected async override void OnAppearing()
@@ -28,9 +26,6 @@ namespace XamDogsOut.Views
             base.OnAppearing();
 
             await GetDeviceLocationAsync();
-
-            
-
         }
 
         private async Task GetDeviceLocationAsync()
@@ -39,11 +34,7 @@ namespace XamDogsOut.Views
 
             if (status == PermissionStatus.Granted)
             {
-
-                var request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
-                cts = new CancellationTokenSource();
-                var location = await Geolocation.GetLocationAsync(request, cts.Token);
-
+                var location = await LocationHelper.GetLastLocationAsync();
                 // preparing a map
                 var position = new Position(location.Latitude, location.Longitude);
                 var mapSpan = new MapSpan(position, 0.01, 0.01);

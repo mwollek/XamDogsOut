@@ -65,9 +65,13 @@
     <PackageReference Include="Xamarin.Forms.Maps">
       <Version>5.0.0.2196</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Location">
+      <Version>118.0.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Auth.cs" />
+    <Compile Include="Dependencies\Location.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
