@@ -7,8 +7,10 @@
         <maps:Map x:Name="map"
               HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand"
-              IsShowingUser="True">
+              IsShowingUser="False"
+              >
         </maps:Map>
+        <Label x:Name="label">Hello</Label>
     </StackLayout>
     
 </ContentPage>

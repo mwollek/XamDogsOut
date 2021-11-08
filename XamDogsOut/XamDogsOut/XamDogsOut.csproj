@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Plugin.CloudFirestore" Version="4.1.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />  
     <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2196" />

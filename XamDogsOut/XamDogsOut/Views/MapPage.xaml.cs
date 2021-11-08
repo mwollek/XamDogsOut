@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +16,13 @@ namespace XamDogsOut.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage : ContentPage
     {
-        private Geocoder geocoder;
+        private readonly IGeolocator locator;
         private CancellationTokenSource cts;
 
         public MapPage()
         {
             InitializeComponent();
-            geocoder = new Geocoder();
+            locator = CrossGeolocator.Current;
         }
 
         protected async override void OnAppearing()
@@ -28,9 +30,12 @@ namespace XamDogsOut.Views
             base.OnAppearing();
 
             await GetDeviceLocationAsync();
+        }
 
-            
-
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            locator.StopListeningAsync();
         }
 
         private async Task GetDeviceLocationAsync()
@@ -39,18 +44,33 @@ namespace XamDogsOut.Views
 
             if (status == PermissionStatus.Granted)
             {
+                var location = await locator.GetPositionAsync();
 
-                var request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
-                cts = new CancellationTokenSource();
-                var location = await Geolocation.GetLocationAsync(request, cts.Token);
 
-                // preparing a map
-                var position = new Position(location.Latitude, location.Longitude);
-                var mapSpan = new MapSpan(position, 0.01, 0.01);
+                locator.PositionChanged += Locator_PositionChanged;
+                await locator.StartListeningAsync(new TimeSpan(0, 0, 5), 0.01);
+
                 map.IsShowingUser = true;
+                label.Text = $"{location.Latitude} | {location.Longitude}";
 
-                map.MoveToRegion(mapSpan);
+
+                CenterMap(location.Latitude, location.Longitude);
             }
+        }
+
+        private void Locator_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+        {
+            CenterMap(e.Position.Latitude, e.Position.Longitude);
+            label.Text = $"{e.Position.Latitude} | {e.Position.Longitude}";
+        }
+
+        private void CenterMap(double latitude, double longitude)
+        {
+            Xamarin.Forms.Maps.Position center = new Xamarin.Forms.Maps.Position(latitude, longitude);
+            MapSpan mapSpan = new MapSpan(center, 0.01, 0.01);
+
+            map.MoveToRegion(mapSpan);
+
         }
 
         private async Task<PermissionStatus> CheckAndRequestPermisionsForLocation()
