@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="XamDogsOut.Views.MapPage">
-    <maps:Map x:Name="locationsMap"
+    <StackLayout>
+        <maps:Map x:Name="map"
               HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand"
-              IsShowingUser="False">
-    </maps:Map>
+              IsShowingUser="True">
+        </maps:Map>
+    </StackLayout>
+    
 </ContentPage>
