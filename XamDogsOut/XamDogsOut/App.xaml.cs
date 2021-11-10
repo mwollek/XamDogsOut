@@ -1,4 +1,6 @@
 ﻿using Xamarin.Forms;
+using XamDogsOut.Models;
+using XamDogsOut.Services;
 
 namespace XamDogsOut
 {
@@ -9,6 +11,9 @@ namespace XamDogsOut
         {
             InitializeComponent();
             MainPage = new AppShell();
+
+
+            DependencyService.Register<IDataProvider<Dog>, DogTable>();
         }
 
         protected override void OnStart()

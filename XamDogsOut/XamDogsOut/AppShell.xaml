@@ -88,4 +88,7 @@
     <FlyoutItem Title="Logout" Icon="icon_about.png">
         <ShellContent Route="AuthPage" ContentTemplate="{DataTemplate local:AuthPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Dog" Icon="icon_about.png">
+        <ShellContent Route="NewDogPage" ContentTemplate="{DataTemplate local:NewDogPage}" />
+    </FlyoutItem>
 </Shell>

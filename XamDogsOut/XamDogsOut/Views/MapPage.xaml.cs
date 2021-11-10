@@ -40,9 +40,11 @@ namespace XamDogsOut.Views
             if (status == PermissionStatus.Granted)
             {
 
+               
                 var request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
                 cts = new CancellationTokenSource();
                 var location = await Geolocation.GetLocationAsync(request, cts.Token);
+                
 
                 // preparing a map
                 var position = new Position(location.Latitude, location.Longitude);

@@ -4,9 +4,14 @@ using System.Threading.Tasks;
 
 namespace XamDogsOut.Services
 {
-    public interface IDataStore<T>
+
+    public interface IDataProvider<T> : IDataService<T>
     {
-        Task<bool> AddItemAsync(T item);
+
+    }
+    public interface IDataService<T>
+    {
+        Task<string> AddItemAsync(T item);
         Task<bool> UpdateItemAsync(T item);
         Task<bool> DeleteItemAsync(string id);
         Task<T> GetItemAsync(string id);
