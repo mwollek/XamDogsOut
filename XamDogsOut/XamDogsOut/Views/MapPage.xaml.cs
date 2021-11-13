@@ -40,18 +40,38 @@ namespace XamDogsOut.Views
             if (status == PermissionStatus.Granted)
             {
 
-               
-                var request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
-                cts = new CancellationTokenSource();
-                var location = await Geolocation.GetLocationAsync(request, cts.Token);
-                
+                try
+                {
+                    var request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
+                    cts = new CancellationTokenSource();
+                    var location = await Geolocation.GetLocationAsync(request, cts.Token);
 
-                // preparing a map
-                var position = new Position(location.Latitude, location.Longitude);
-                var mapSpan = new MapSpan(position, 0.01, 0.01);
-                map.IsShowingUser = true;
+                    if (location != null)
+                    {
+                        var position = new Position(location.Latitude, location.Longitude);
+                        var mapSpan = new MapSpan(position, 0.01, 0.01);
+                        map.IsShowingUser = true;
 
-                map.MoveToRegion(mapSpan);
+                        map.MoveToRegion(mapSpan); 
+                    }
+                }
+                catch (FeatureNotSupportedException fnsEx)
+                {
+                    // Handle not supported on device exception
+                    await App.Current.MainPage.DisplayAlert("Error", fnsEx.Message, "Ok");
+                }
+                catch (FeatureNotEnabledException fneEx)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", fneEx.Message, "Ok");
+                }
+                catch (PermissionException pEx)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", pEx.Message, "Ok");
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");             
+                }   
             }
         }
 
