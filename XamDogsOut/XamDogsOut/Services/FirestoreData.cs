@@ -30,6 +30,12 @@ namespace XamDogsOut.Services
             return true;
         }
 
+        public async Task<Dog> GetByUserId(string userId)
+        {
+            var items = await GetItemsAsync();
+            return items.FirstOrDefault(x => x.UserId == userId);
+        }
+
         public async Task<Dog> GetItemAsync(string id)
         {
             var document = await CrossCloudFirestore.Current

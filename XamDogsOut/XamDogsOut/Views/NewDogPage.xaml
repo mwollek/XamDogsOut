@@ -4,7 +4,7 @@
              x:Class="XamDogsOut.Views.NewDogPage">
     <ContentPage.Content>
         <StackLayout Padding="15">
-            <ImageButton VerticalOptions="FillAndExpand" x:Name="dogImageButton" BackgroundColor="White" Clicked="dogImageButton_Clicked"></ImageButton>
+            <ImageButton VerticalOptions="FillAndExpand" x:Name="dogImageButton" Clicked="dogImageButton_Clicked"  BackgroundColor="White"></ImageButton>
             <Entry x:Name="nameEntry" Placeholder="Pet's name"></Entry>
             <Entry x:Name="weightEntry" Placeholder="Pet's weight" Keyboard="Numeric"></Entry>
             <Entry x:Name="raceEntry" Placeholder="Pet's race"></Entry>

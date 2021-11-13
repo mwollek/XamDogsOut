@@ -10,20 +10,22 @@ using Xamarin.Forms.Xaml;
 using XamDogsOut.Models;
 using XamDogsOut.Services;
 using System.Drawing;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 namespace XamDogsOut.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewDogPage : ContentPage
     {
-        private IDataProvider<Dog> dogTable;
+        private IDataProvider<Dog> _dogService;
         private byte[] newPhotoArray;
         private bool userHasDog;
         private Dog usersDog;
         public NewDogPage()
         {
             InitializeComponent();
-            dogTable = DependencyService.Get<IDataProvider<Dog>>();
+            _dogService = DependencyService.Get<IDataProvider<Dog>>();
             
         }
 
@@ -31,12 +33,11 @@ namespace XamDogsOut.Views
         {
             base.OnAppearing();
 
-            var dogs = await dogTable.GetItemsAsync();
+            var dogs = await _dogService.GetItemsAsync();
             userHasDog = dogs.Any(x => x.UserId == Auth.GetCurrentUserId());
             if (userHasDog)
             {
-                usersDog = dogs.Where(x => x.UserId == Auth.GetCurrentUserId()).FirstOrDefault();
-                //selectedPhotoArray = usersDog.PhotoContent;
+                usersDog = await _dogService.GetByUserId(Auth.GetCurrentUserId());
 
                 if (newPhotoArray != null)
                     dogImageButton.Source = ImageSource.FromStream(() => new MemoryStream(newPhotoArray));
@@ -46,6 +47,12 @@ namespace XamDogsOut.Views
                 nameEntry.Text = usersDog.Name;
                 weightEntry.Text = usersDog.Weight.ToString();
                 raceEntry.Text = usersDog.Race;
+            }
+            else
+            {
+                nameEntry.Text = string.Empty;
+                weightEntry.Text = string.Empty;
+                raceEntry.Text = string.Empty;
             }
         }
 
@@ -69,36 +76,45 @@ namespace XamDogsOut.Views
             if (userHasDog)
             {
                 dog.Id = usersDog.Id;
-                await dogTable.UpdateItemAsync(dog);
+                await _dogService.UpdateItemAsync(dog);
             }
             else
             {
-                await dogTable.AddItemAsync(dog);
+                await _dogService.AddItemAsync(dog);
             }
 
-            await DisplayAlert("Done", "Succesfully", "Ok");
+            string mess = !userHasDog ? "added" : "updated";
+            await DisplayAlert("Done", $"Succesfully { mess }", "Ok");
             await Shell.Current.GoToAsync($"//{nameof(MapPage)}");
             
         }
         private async void dogImageButton_Clicked(object sender, EventArgs e)
         {
-            try
+
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                var result = await FilePicker.PickAsync(new PickOptions());
-                if (result != null)
-                {
-                    var resultToStream = await result.OpenReadAsync();
-                    dogImageButton.Source = ImageSource.FromStream(x => result.OpenReadAsync());
-                    using (var ms = new MemoryStream())
-                    {
-                        resultToStream.CopyTo(ms);
-                        newPhotoArray = ms.ToArray();
-                    }              
-                }
+                await DisplayAlert("Not suported", "Acces to this functionality is denied ", "ok");
+                return;
             }
-            catch (Exception ex)
+
+            var mediaOptions = new PickMediaOptions()
             {
-                
+                PhotoSize = PhotoSize.Medium
+            };
+
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+            if (selectedImageFile == null)
+            {
+                await DisplayAlert("Error", "Could not find photo", "ok");
+                return;
+            }
+            dogImageButton.Source = ImageSource.FromStream(() => selectedImageFile.GetStream());
+            using (var ms = new MemoryStream())
+            {
+                selectedImageFile.GetStream().CopyTo(ms);
+                newPhotoArray = ms.ToArray();
             }
 
         }

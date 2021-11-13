@@ -15,6 +15,10 @@ namespace XamDogsOut.Services
         Task<bool> UpdateItemAsync(T item);
         Task<bool> DeleteItemAsync(string id);
         Task<T> GetItemAsync(string id);
+
+        // returns dog that stores user 'id'
+        Task<T> GetByUserId(string userId);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        
     }
 }
