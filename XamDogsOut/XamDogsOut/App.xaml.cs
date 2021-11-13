@@ -11,8 +11,6 @@ namespace XamDogsOut
         {
             InitializeComponent();
             MainPage = new AppShell();
-
-
             DependencyService.Register<IDataProvider<Dog>, DogTable>();
         }
 

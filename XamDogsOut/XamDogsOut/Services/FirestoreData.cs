@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using XamDogsOut.Models;
@@ -19,9 +20,14 @@ namespace XamDogsOut.Services
            
         }
 
-        public Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(string id)
         {
-            throw new NotImplementedException();
+            await CrossCloudFirestore.Current
+                         .Instance
+                         .Collection("dogs")
+                         .Document(id)
+                         .DeleteAsync();
+            return true;
         }
 
         public async Task<Dog> GetItemAsync(string id)
@@ -41,6 +47,7 @@ namespace XamDogsOut.Services
                                      .Instance
                                      .CollectionGroup("dogs")
                                      .GetAsync();
+            
 
             return group.ToObjects<Dog>();
         }
@@ -51,7 +58,8 @@ namespace XamDogsOut.Services
                          .Instance
                          .Collection("dogs")
                          .Document(item.Id)
-                         .UpdateAsync(new { Name = item.Name, Weight = item.Weight, Race = item.Race });
+                         .UpdateAsync(new { Name = item.Name, Weight = item.Weight, Race = item.Race, PhotoContent = item.PhotoContent});
+
             return true;
         }
     }
