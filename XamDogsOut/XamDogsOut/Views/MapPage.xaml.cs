@@ -86,5 +86,10 @@ namespace XamDogsOut.Views
             return status;
 
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            App.Current.MainPage.Navigation.PushAsync(new NewDogPage());
+        }
     }
 }

@@ -1,14 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:XamDogsOut.ViewModels"
              x:Class="XamDogsOut.Views.NewDogPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:DogVM x:Key="vm"></vm:DogVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="15">
-            <ImageButton VerticalOptions="FillAndExpand" x:Name="dogImageButton" Clicked="dogImageButton_Clicked"  BackgroundColor="White"></ImageButton>
-            <Entry x:Name="nameEntry" Placeholder="Pet's name"></Entry>
-            <Entry x:Name="weightEntry" Placeholder="Pet's weight" Keyboard="Numeric"></Entry>
-            <Entry x:Name="raceEntry" Placeholder="Pet's race"></Entry>
-            <Button Text="Save" Clicked="Button_Clicked"></Button>
+        <StackLayout 
+            Padding="15"
+            BindingContext="{StaticResource vm}">
+            
+            <ImageButton 
+                VerticalOptions="FillAndExpand" 
+                Command="{Binding PickPhotoCommand}" 
+                BackgroundColor="White"
+                Source="{Binding DogPhoto}">
+                
+            </ImageButton>
+            <Entry 
+                x:Name="nameEntry" 
+                Placeholder="Pet's name"
+                Text="{Binding Name}">
+                
+            </Entry>
+            <Entry 
+                x:Name="weightEntry" 
+                Placeholder="Pet's weight" 
+                Keyboard="Numeric"
+                Text="{Binding Weight}">
+                
+            </Entry>
+            <Entry 
+                x:Name="raceEntry" 
+                Placeholder="Pet's race"
+                Text="{Binding Race}">
+                
+            </Entry>
+            <Button Text="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding ModelIsReady}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
