@@ -82,11 +82,11 @@
     <ShellItem Route="AuthPage" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate local:AuthPage}"></ShellContent>
     </ShellItem>
-    <FlyoutItem Title="Map" Icon="icon_about.png">
+    <ShellItem Route="HomePage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:HomePage}"></ShellContent>
+    </ShellItem>
+    <FlyoutItem Title="Map" Icon="icon_about.png" FlyoutItemIsVisible="False">
         <ShellContent Route="MapPage" ContentTemplate="{DataTemplate local:MapPage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Dog" Icon="icon_about.png">
-        <ShellContent Route="NewDogPage" ContentTemplate="{DataTemplate local:NewDogPage}"  />
     </FlyoutItem>
     <FlyoutItem Title="Logout" Icon="icon_about.png">
         <ShellContent Route="AuthPage" ContentTemplate="{DataTemplate local:AuthPage}" />

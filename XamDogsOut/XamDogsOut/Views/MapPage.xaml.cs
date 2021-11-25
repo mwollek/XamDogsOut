@@ -21,6 +21,9 @@ namespace XamDogsOut.Views
         {
             InitializeComponent();
             geocoder = new Geocoder();
+
+            var assembly = typeof(MapPage);
+            addRequestButton.Source = ImageSource.FromResource("XamDogsOut.Assets.Images.paw_s.png", assembly);
         }
 
         protected async override void OnAppearing()
@@ -46,9 +49,17 @@ namespace XamDogsOut.Views
                     cts = new CancellationTokenSource();
                     var location = await Geolocation.GetLocationAsync(request, cts.Token);
 
+                    
+
                     if (location != null)
                     {
                         var position = new Position(location.Latitude, location.Longitude);
+
+                        //var geoResultList = (await geocoder.GetAddressesForPositionAsync(position))
+                            //.ToList().FirstOrDefault();
+
+                        //var geoResultCords = (await geocoder.GetPositionsForAddressAsync("Zacisze 102 32-080 Zabierzów Poland"))?.FirstOrDefault();
+
                         var mapSpan = new MapSpan(position, 0.01, 0.01);
                         map.IsShowingUser = true;
 

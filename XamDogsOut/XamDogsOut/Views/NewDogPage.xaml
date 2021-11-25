@@ -21,12 +21,17 @@
                 Source="{Binding DogPhoto}">
                 
             </ImageButton>
+            <Label>
+                Name:
+            </Label>
             <Entry 
                 x:Name="nameEntry" 
                 Placeholder="Pet's name"
                 Text="{Binding Name}">
-                
             </Entry>
+            <Label>
+                Weight:
+            </Label>
             <Entry 
                 x:Name="weightEntry" 
                 Placeholder="Pet's weight" 
@@ -34,6 +39,9 @@
                 Text="{Binding Weight}">
                 
             </Entry>
+            <Label>
+                Race:
+            </Label>
             <Entry 
                 x:Name="raceEntry" 
                 Placeholder="Pet's race"

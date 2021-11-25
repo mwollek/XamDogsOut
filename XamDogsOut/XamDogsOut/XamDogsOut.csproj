@@ -8,10 +8,12 @@
   <ItemGroup>
     <None Remove="Assets\Images\add_image.png" />
     <None Remove="Assets\Images\paw.png" />
+    <None Remove="Assets\Images\paw_s.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\paw.png" />
+    <EmbeddedResource Include="Assets\Images\paw_s.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,10 +30,16 @@
     <EmbeddedResource Update="Views\AuthPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\MapPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\NewDogPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\RegisterPage.xaml">

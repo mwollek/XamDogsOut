@@ -116,7 +116,7 @@ namespace XamDogsOut.ViewModels
 
             string mess = !await IsUserHasDog() ? "added" : "updated";
             await App.Current.MainPage.DisplayAlert("Done", $"Succesfully { mess }", "Ok");
-            await Shell.Current.GoToAsync($"//{nameof(MapPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
         private bool CanSave(bool param) => param;
 

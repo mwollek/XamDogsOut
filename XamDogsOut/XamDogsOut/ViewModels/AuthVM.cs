@@ -61,7 +61,7 @@ namespace XamDogsOut.ViewModels
             bool result = await Auth.LoginUserAsync(Email, Password);
             if (result)
             {
-                await Shell.Current.GoToAsync($"//{nameof(MapPage)}");
+                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
             }
         }
         private bool CanLogin(bool parameter)
