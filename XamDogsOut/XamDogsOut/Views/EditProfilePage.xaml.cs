@@ -24,6 +24,7 @@ namespace XamDogsOut.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            vm.LoadProfileInfo();
         }
     }
 }

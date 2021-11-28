@@ -173,7 +173,7 @@ namespace XamDogsOut.ViewModels
 
                     await _profileService.UpdateItemAsync(profile);
 
-                    await Shell.Current.GoToAsync("//HomePage");
+                    await Shell.Current.GoToAsync("..");
                 }
             }
             catch (Exception ex)
@@ -220,7 +220,25 @@ namespace XamDogsOut.ViewModels
                 
             }
         }
-        
+
+        public async void LoadProfileInfo()
+        {
+            Profile profile = await _profileService.GetByUserId(Auth.GetCurrentUserId());
+            if (profile.IsConfirmed)
+            {
+                UserName = profile.UserName;
+                UserSurname = profile.UserSurname;
+                Country = profile.Country;
+                City = profile.City;
+                Street = profile.Street;
+                BuildingNumber = profile.BuildingNumber;
+                FlatNumber = profile.FlatNumber;
+                ZipCode = profile.ZipCode;
+                FlatNumber = profile.FlatNumber;
+            }
+            
+        }
+
 
 
 
