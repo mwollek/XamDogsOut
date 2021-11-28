@@ -212,10 +212,10 @@ namespace XamDogsOut.ViewModels
                         await App.Current.MainPage.DisplayAlert("Done", $"Looks like you are in {placemark.Locality}", "Ok");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // Handle not supported on device exception
-                    await App.Current.MainPage.DisplayAlert("Error", "Could not find address. Please insert information manually.", "Ok");
+                    await App.Current.MainPage.DisplayAlert("Error", $"Could not find address. Please insert information manually. \nMessage: {ex.Message}", "Ok");
                 }
                 
             }

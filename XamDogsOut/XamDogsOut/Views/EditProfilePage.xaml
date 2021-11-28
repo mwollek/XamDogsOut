@@ -15,14 +15,14 @@
         <ScrollView>
             <StackLayout
             BindingContext="{StaticResource vm}"
-            VerticalOptions="Center"
             Margin="15">
                 <Label
                     FontSize="Title"
+                    HorizontalOptions="Center"
                     >Insert profile information</Label>
                 <Button
                     Margin="0, 0, 0, 20"
-                    Text="Try locate me"
+                    Text="Locate me"
                     Command="{Binding TryLocateMeCommand}"
                     ></Button>
                 
@@ -75,6 +75,8 @@
                 </Entry>
 
                 <Button
+                    Margin="15"
+                    HorizontalOptions="FillAndExpand"
                     Text="Save"
                     Command="{Binding SaveCommand}"
                     CommandParameter="{Binding ModelIsReady}">

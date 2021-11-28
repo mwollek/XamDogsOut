@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using XamDogsOut.Models;
 using XamDogsOut.Services;
+using XamDogsOut.Views;
 
 namespace XamDogsOut.ViewModels
 {
@@ -104,7 +105,7 @@ namespace XamDogsOut.ViewModels
 
         private async void NavigateToEdit()
         {
-            await Shell.Current.GoToAsync("EditProfilePage");
+            await Shell.Current.GoToAsync(nameof(EditProfilePage));
         }
         public async void LoadProfileInfo()
         {

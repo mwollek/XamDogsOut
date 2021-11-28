@@ -15,6 +15,10 @@
         <StackLayout
            Margin="20"
                 BindingContext="{StaticResource vm}">
+            <Label
+                FontSize="Large"
+                Margin="0, 0, 0, 0">Profile information</Label>
+            
             <Label>
                 <Label.FormattedText>
                     <FormattedString>
@@ -79,6 +83,10 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
+            <Button
+                Text="Update"
+                Command="{Binding NavigateToEditCommand}">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
