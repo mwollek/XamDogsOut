@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 using XamDogsOut.Models;
 using XamDogsOut.Services;
+using XamDogsOut.Services.FirestoreData;
 
 namespace XamDogsOut
 {
@@ -12,6 +13,7 @@ namespace XamDogsOut
             InitializeComponent();
             MainPage = new AppShell();
             DependencyService.Register<IDataProvider<Dog>, DogTable>();
+            DependencyService.Register<IDataProvider<Profile>, ProfileTable>();
         }
 
         protected override void OnStart()

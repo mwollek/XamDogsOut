@@ -17,7 +17,7 @@ using XamDogsOut.ViewModels;
 namespace XamDogsOut.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewDogPage : ContentPage
+    public partial class EditDogPage : ContentPage
     {
         
         private byte[] newPhotoArray;
@@ -25,7 +25,7 @@ namespace XamDogsOut.Views
         private Dog usersDog;
 
         private DogVM vm;
-        public NewDogPage()
+        public EditDogPage()
         {
             InitializeComponent();
             vm = Resources["vm"] as DogVM;

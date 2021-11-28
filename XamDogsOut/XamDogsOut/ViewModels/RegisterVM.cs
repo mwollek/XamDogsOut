@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using XamDogsOut.Models;
 using XamDogsOut.Services;
 using XamDogsOut.Views;
 
@@ -9,6 +10,8 @@ namespace XamDogsOut.ViewModels
 {
     public class RegisterVM : BaseViewModel
     {
+
+        
 
         public Command RegisterCommand { get; set; }
 
@@ -71,8 +74,10 @@ namespace XamDogsOut.ViewModels
 
 
 
+        private IDataProvider<Profile> _profileService;
         public RegisterVM()
         {
+            _profileService = DependencyService.Get<IDataProvider<Profile>>();
             RegisterCommand = new Command<bool>(Register, CanRegister);
         }
 
@@ -83,8 +88,18 @@ namespace XamDogsOut.ViewModels
             bool result = await Auth.RegisterUserAsync(Email, Password);
             if (result)
             {
-                await App.Current.MainPage.Navigation.PushAsync(new MapPage());
+                Profile profile = new Profile()
+                {
+                    UserId = Auth.GetCurrentUserId(),
+                    IsConfirmed = false
+                };
+                await _profileService.AddItemAsync(profile);
+
+
+                await App.Current.MainPage.Navigation.PushAsync(new HomePage());
             }
+
+            
         }
     }
 }

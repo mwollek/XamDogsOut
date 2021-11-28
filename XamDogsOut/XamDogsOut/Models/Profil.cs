@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XamDogsOut.Models
 {
-    public class Profil
+    public class Profile
     {
         [Id]
         public string Id { get; set; }
@@ -14,6 +14,8 @@ namespace XamDogsOut.Models
         public string UserSurname { get; set; }
 
         // adress
+
+        public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public string BuildingNumber { get; set; }
@@ -24,6 +26,10 @@ namespace XamDogsOut.Models
 
         public double Lat { get; set; }
         public double Lon { get; set; }
+
+
+        public bool IsConfirmed { get; set; }
+
 
     }
 }

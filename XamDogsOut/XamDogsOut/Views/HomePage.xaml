@@ -4,7 +4,7 @@
              xmlns:local ="clr-namespace:XamDogsOut.Views"
              x:Class="XamDogsOut.Views.HomePage">
     
-    <local:NewDogPage Title="Dog" IconImageSource="ic_action_home.png"></local:NewDogPage>
+    <local:EditDogPage Title="Dog" IconImageSource="ic_action_home.png"></local:EditDogPage>
     <local:MapPage Title="Map" IconImageSource="ic_action_map.png"></local:MapPage>
     <local:ProfilePage Title="Profile" IconImageSource="ic_action_map.png"></local:ProfilePage>
 </TabbedPage>
