@@ -11,14 +11,14 @@ using XamDogsOut.ViewModels;
 namespace XamDogsOut.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfilePage : ContentPage
+    public partial class EditProfilePage : ContentPage
     {
-        private ProfileVM vm;
+        private EditProfileVM vm;
 
-        public ProfilePage()
-        { 
+        public EditProfilePage()
+        {
             InitializeComponent();
-            vm = Resources["vm"] as ProfileVM;
+            vm = Resources["vm"] as EditProfileVM;
         }
 
         protected override void OnAppearing()

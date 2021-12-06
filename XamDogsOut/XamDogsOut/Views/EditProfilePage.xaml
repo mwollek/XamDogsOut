@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamDogsOut.Views.EditProfilePage"
+             xmlns:vm="clr-namespace:XamDogsOut.ViewModels">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:EditProfileVM x:Key="vm"></vm:EditProfileVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+            BindingContext="{StaticResource vm}"
+            Margin="15">
+                <Label
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    >Insert profile information</Label>
+                <Button
+                    Margin="0, 0, 0, 20"
+                    Text="Locate me"
+                    Command="{Binding TryLocateMeCommand}"
+                    ></Button>
+                
+                <Label>User name</Label>
+                <Entry
+                    Text="{Binding UserName}">
+
+                </Entry>
+
+                <Label>User surname</Label>
+                <Entry
+                    Text="{Binding UserSurname}">
+
+                </Entry>
+
+                <Label>Country</Label>
+                <Entry
+                    Text="{Binding Country}">
+
+                </Entry>
+
+                <Label>City</Label>
+                <Entry
+                    Text="{Binding City}">
+
+                </Entry>
+
+                <Label>Street</Label>
+                <Entry
+                    Text="{Binding Street}">
+
+                </Entry>
+
+                <Label>Building number</Label>
+                <Entry
+                    Text="{Binding BuildingNumber}">
+
+                </Entry>
+
+                <Label>Flat number</Label>
+                <Entry
+                    Text="{Binding FlatNumber}">
+
+                </Entry>
+
+                <Label>Zip-code</Label>
+                <Entry
+                    Text="{Binding ZipCode}">
+
+                </Entry>
+
+                <Button
+                    Margin="15"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Save"
+                    Command="{Binding SaveCommand}"
+                    CommandParameter="{Binding ModelIsReady}">
+                </Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

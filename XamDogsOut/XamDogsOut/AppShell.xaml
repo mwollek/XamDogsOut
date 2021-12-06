@@ -85,6 +85,9 @@
     <ShellItem Route="HomePage" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate local:HomePage}"></ShellContent>
     </ShellItem>
+    <ShellItem Route="EditProfilePage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:EditProfilePage}"></ShellContent>
+    </ShellItem>
     <FlyoutItem Title="Map" Icon="icon_about.png" FlyoutItemIsVisible="False">
         <ShellContent Route="MapPage" ContentTemplate="{DataTemplate local:MapPage}" />
     </FlyoutItem>

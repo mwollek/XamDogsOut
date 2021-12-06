@@ -1,12 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamDogsOut.Views.ProfilePage">
+             x:Class="XamDogsOut.Views.ProfilePage"
+             xmlns:vm="clr-namespace:XamDogsOut.ViewModels">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:ProfileVM x:Key="vm"></vm:ProfileVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout
+           Margin="20"
+                BindingContext="{StaticResource vm}">
+            <Label
+                FontSize="Large"
+                Margin="0, 0, 0, 0">Profile information</Label>
+            
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="User name:  "></Span>
+                        <Span Text="{Binding UserName}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="User surname:  "></Span>
+                        <Span Text="{Binding UserSurname}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Country:  "></Span>
+                        <Span Text="{Binding Country}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="City:  "></Span>
+                        <Span Text="{Binding City}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Street:  "></Span>
+                        <Span Text="{Binding Street}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Building number:  "></Span>
+                        <Span Text="{Binding BuildingNumber}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Flat number:  "></Span>
+                        <Span Text="{Binding FlatNumber}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Zip-code:  "></Span>
+                        <Span Text="{Binding ZipCode}" FontAttributes="Bold"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Button
+                Text="Update"
+                Command="{Binding NavigateToEditCommand}">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

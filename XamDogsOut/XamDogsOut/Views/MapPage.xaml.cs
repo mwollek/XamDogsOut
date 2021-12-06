@@ -8,6 +8,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using XamDogsOut.Helpers;
 
 namespace XamDogsOut.Views
 {
@@ -38,27 +39,20 @@ namespace XamDogsOut.Views
 
         private async Task GetDeviceLocationAsync()
         {
-            var status = await CheckAndRequestPermisionsForLocation();
+            var status = await GeoHelpers.CheckAndRequestPermisionsForLocation();
 
             if (status == PermissionStatus.Granted)
             {
 
                 try
                 {
-                    var request = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
-                    cts = new CancellationTokenSource();
-                    var location = await Geolocation.GetLocationAsync(request, cts.Token);
 
+                    var location = await GeoHelpers.GetDeviceLocation();
                     
 
                     if (location != null)
                     {
                         var position = new Position(location.Latitude, location.Longitude);
-
-                        //var geoResultList = (await geocoder.GetAddressesForPositionAsync(position))
-                            //.ToList().FirstOrDefault();
-
-                        //var geoResultCords = (await geocoder.GetPositionsForAddressAsync("Zacisze 102 32-080 Zabierzów Poland"))?.FirstOrDefault();
 
                         var mapSpan = new MapSpan(position, 0.01, 0.01);
                         map.IsShowingUser = true;
@@ -86,21 +80,9 @@ namespace XamDogsOut.Views
             }
         }
 
-        private async Task<PermissionStatus> CheckAndRequestPermisionsForLocation()
-        {
-            var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-
-            if (status == PermissionStatus.Granted)
-                return status;
-
-            status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            return status;
-
-        }
-
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            App.Current.MainPage.Navigation.PushAsync(new NewDogPage());
+            App.Current.MainPage.Navigation.PushAsync(new EditDogPage());
         }
     }
 }
