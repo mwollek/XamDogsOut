@@ -14,6 +14,8 @@ namespace XamDogsOut
             MainPage = new AppShell();
             DependencyService.Register<IDataProvider<Dog>, DogTable>();
             DependencyService.Register<IDataProvider<Profile>, ProfileTable>();
+            DependencyService.Register<IDataProvider<Request>, RequestTable>();
+
         }
 
         protected override void OnStart()

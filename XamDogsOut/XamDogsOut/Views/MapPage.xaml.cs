@@ -9,6 +9,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 using XamDogsOut.Helpers;
+using XamDogsOut.Models;
+using XamDogsOut.Services;
 
 namespace XamDogsOut.Views
 {
@@ -17,11 +19,21 @@ namespace XamDogsOut.Views
     {
         private Geocoder geocoder;
         private CancellationTokenSource cts;
+        private IDataProvider<Dog> _dogService;
+        private IDataProvider<Profile> _profileService;
+        private IDataProvider<Request> _requestService;
+
+
 
         public MapPage()
         {
             InitializeComponent();
             geocoder = new Geocoder();
+            _dogService = DependencyService.Get<IDataProvider<Dog>>();
+            _profileService = DependencyService.Get<IDataProvider<Profile>>();
+            _requestService = DependencyService.Get<IDataProvider<Request>>();
+
+
 
             var assembly = typeof(MapPage);
             addRequestButton.Source = ImageSource.FromResource("XamDogsOut.Assets.Images.paw_s.png", assembly);
@@ -32,9 +44,41 @@ namespace XamDogsOut.Views
             base.OnAppearing();
 
             await GetDeviceLocationAsync();
-
+            await GetStandByRequestOnMap();
             
 
+        }
+
+        private async Task GetStandByRequestOnMap()
+        {
+            var requests = (await _requestService.GetItemsAsync()).Where(x => x.Status == RequestStatuses.StandBy).ToList();
+
+            foreach (var request in requests)
+            {
+                var pin = await PreparePin(request);
+                map.Pins.Add(pin);
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            map.Pins.Clear();
+        }
+
+        private async Task<Pin> PreparePin(Request request)
+        {
+            var profile = await _profileService.GetByUserId(request.SenderId);
+            var dog = await _dogService.GetByUserId(request.SenderId);
+            var sender = await _profileService.GetByUserId(request.SenderId);
+
+            var position = new Position(profile.Lat, profile.Lon);
+            return new Pin()
+            {
+                Label = $"Dog name: {dog.Name} | Owner: {sender.UserSurname}",
+                Position = position,
+                Type = PinType.SavedPin
+            };
         }
 
         private async Task GetDeviceLocationAsync()
@@ -83,6 +127,43 @@ namespace XamDogsOut.Views
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             App.Current.MainPage.Navigation.PushAsync(new EditDogPage());
+        }
+
+        private async void addRequestButton_Clicked(object sender, EventArgs e)
+        {
+            var userDog = await _dogService.GetByUserId(Auth.GetCurrentUserId());
+            if (userDog == null)
+            {
+                await App.Current.MainPage.DisplayAlert("No pet found.", "Looks like you did not provide any information about your pet. " +
+                    "Please add a pet profile to use this functionality. ", "Ok");
+                return;
+            }
+
+            // check if user already had posted a request
+            var userHasActiveRequest = (await _requestService.GetItemsAsync())
+                                            .Where(x => x.SenderId == Auth.GetCurrentUserId())
+                                            .Any(x => x.Status == RequestStatuses.StandBy || x.Status == RequestStatuses.InProgress);
+
+            if (!userHasActiveRequest)
+            {
+                var answer = await App.Current.MainPage.DisplayAlert("Request", "Would you like to add a request on a map?", "Yes", "No");
+
+                if (answer)
+                { 
+                    Request newRequest = new Request()
+                    {
+                        SenderId = Auth.GetCurrentUserId(),
+                        Status = RequestStatuses.StandBy
+                    };
+
+                    await _requestService.AddItemAsync(newRequest);               
+                }
+            }
+            else
+                await Shell.Current.GoToAsync(nameof(RequestInfoPage));
+
+
+
         }
     }
 }
