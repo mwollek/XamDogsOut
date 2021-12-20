@@ -25,6 +25,7 @@
             AbsoluteLayout.LayoutFlags="PositionProportional"
             HeightRequest="75"
             WidthRequest="75"
-            CornerRadius="50" />
+            CornerRadius="50"
+            Clicked="addRequestButton_Clicked"/>
     </AbsoluteLayout>
 </ContentPage>
