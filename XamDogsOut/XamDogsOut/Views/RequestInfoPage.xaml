@@ -4,7 +4,7 @@
              x:Class="XamDogsOut.Views.RequestInfoPage">
     <ContentPage.Content>
         <StackLayout Margin="10">
-            <Button Text="Delete request" Clicked="Button_Clicked" HorizontalOptions="CenterAndExpand">
+            <Button Text="Delete request" Clicked="Button_Clicked" HorizontalOptions="CenterAndExpand" BackgroundColor="Red">
                 
             </Button>
         </StackLayout>

@@ -10,6 +10,9 @@ using Xamarin.Forms.Maps;
 using Xamarin.Forms.Maps.Android;
 using XamDogsOut.Droid;
 using XamDogsOut.Helpers;
+using XamDogsOut.Models;
+using XamDogsOut.Services;
+using XamDogsOut.Views;
 
 [assembly: ExportRenderer(typeof(CustomMap), typeof(CustomMapRenderer))]
 namespace XamDogsOut.Droid
@@ -57,7 +60,7 @@ namespace XamDogsOut.Droid
             return marker;
         }
 
-        void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
+        async void OnInfoWindowClick(object sender, GoogleMap.InfoWindowClickEventArgs e)
         {
             var customPin = GetCustomPin(e.Marker);
             if (customPin == null)
@@ -65,13 +68,15 @@ namespace XamDogsOut.Droid
                 throw new Exception("Custom pin not found");
             }
 
-            if (!string.IsNullOrWhiteSpace(customPin.Url))
-            {
-                var url = Android.Net.Uri.Parse(customPin.Url);
-                var intent = new Intent(Intent.ActionView, url);
-                intent.AddFlags(ActivityFlags.NewTask);
-                Android.App.Application.Context.StartActivity(intent);
-            }
+            var _dogServices = new DogTable();
+            var userId = Auth.GetCurrentUserId();
+            var dog = await _dogServices.GetByUserId(userId);
+
+            if (dog.UserId.Equals(userId))
+                await Shell.Current.GoToAsync($"{nameof(RequestInfoPage)}");
+            else
+                await Shell.Current.GoToAsync($"{nameof(DetailsDogPage)}?DogId={customPin.DogId}");
+            
         }
 
         public Android.Views.View GetInfoContents(Marker marker)

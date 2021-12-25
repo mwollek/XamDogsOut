@@ -77,8 +77,9 @@ namespace XamDogsOut.Views
             var position = new Position(profile.Lat, profile.Lon);
             return new CustomPin()
             {
-                Label = $"Dog name: {dog.Name} | Owner: {sender.UserSurname}",
+                Label = $"Dog: {dog.Name} | Owner: {sender.UserName +  " " + sender.UserSurname}",
                 Position = position,
+                DogId = dog.Id,
                 Type = PinType.SavedPin
             };
         }

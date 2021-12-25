@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamDogsOut.Views.DetailsDogPage">
+    
+    <ContentPage.Content>
+        <StackLayout 
+            Padding="15">
+            <Image
+                x:Name="dogImage"
+                VerticalOptions="FillAndExpand" 
+                BackgroundColor="White">
+            </Image>
+            <Label Margin="0, 20, 0, 0" FontSize="Medium" HorizontalTextAlignment="Center">
+                Pet's information:
+            </Label>
+            <Label x:Name="nameLabel" FontSize="Body">
+            </Label>
+            <Label x:Name="weightLabel" FontSize="Body">
+            </Label>
+            <Label x:Name="raceLabel" FontSize="Body">
+            </Label>
+            <Button Text="Accept" x:Name="AcceptButton" Clicked="AcceptButton_Clicked" BackgroundColor="Green"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
