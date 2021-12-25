@@ -25,5 +25,20 @@
             WidthRequest="75"
             CornerRadius="50"
             Clicked="addRequestButton_Clicked"/>
+
+        <Button
+            BackgroundColor="Brown"
+            BorderColor="Black"
+            BorderWidth="3"
+            x:Name="requestCountButton"
+            Margin="75"
+            AbsoluteLayout.LayoutBounds="0, 0, AutoSize, AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            HeightRequest="35"
+            WidthRequest="35"
+            FontSize="14"
+            Padding="0, 0, 0, 0"
+            CornerRadius="50"
+            Clicked="addRequestButton_Clicked"/>
     </AbsoluteLayout>
 </ContentPage>

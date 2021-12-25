@@ -11,6 +11,7 @@ using Xamarin.Forms.Xaml;
 using XamDogsOut.Helpers;
 using XamDogsOut.Models;
 using XamDogsOut.Services;
+using XamDogsOut.Services.FirestoreData;
 
 namespace XamDogsOut.Views
 {
@@ -22,6 +23,8 @@ namespace XamDogsOut.Views
         private IDataProvider<Dog> _dogService;
         private IDataProvider<Profile> _profileService;
         private IDataProvider<Request> _requestService;
+        private IDataProvider<AcceptedRequest> _acceptedRequestService;
+
 
 
 
@@ -32,6 +35,8 @@ namespace XamDogsOut.Views
             _dogService = DependencyService.Get<IDataProvider<Dog>>();
             _profileService = DependencyService.Get<IDataProvider<Profile>>();
             _requestService = DependencyService.Get<IDataProvider<Request>>();
+            _acceptedRequestService = DependencyService.Get<IDataProvider<AcceptedRequest>>();
+
 
             map.CustomPins = new List<CustomPin>();
 
@@ -45,8 +50,34 @@ namespace XamDogsOut.Views
 
             await GetDeviceLocationAsync();
             await GetStandByRequestOnMap();
+            await DisplayRequestCountMarker();
             
 
+        }
+
+        private async Task DisplayRequestCountMarker()
+        {
+            var userId = Auth.GetCurrentUserId();
+            bool userHasRequestPosted = (await (_requestService as RequestTable).GetByUserId(userId)) != null;
+            if (userHasRequestPosted)
+            {
+                var acceptedRequests = await _acceptedRequestService.GetItemsAsync();
+                var acceptedUserRequestsCount = acceptedRequests.Where(x => x.SenderId == userId).Count();
+
+                if (acceptedUserRequestsCount > 0)
+                {
+                    requestCountButton.IsVisible = true;
+                    requestCountButton.Text = acceptedUserRequestsCount.ToString();
+                }
+                else
+                {
+                    requestCountButton.IsVisible = false;
+                }
+            }
+            else
+            {
+                requestCountButton.IsVisible = false;
+            }
         }
 
         private async Task GetStandByRequestOnMap()
