@@ -15,6 +15,8 @@ namespace XamDogsOut
             DependencyService.Register<IDataProvider<Dog>, DogTable>();
             DependencyService.Register<IDataProvider<Profile>, ProfileTable>();
             DependencyService.Register<IDataProvider<Request>, RequestTable>();
+            DependencyService.Register<IDataProvider<AcceptedRequest>, AcceptedRequestTable>();
+
 
         }
 

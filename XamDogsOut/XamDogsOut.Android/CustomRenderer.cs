@@ -70,12 +70,12 @@ namespace XamDogsOut.Droid
 
             var _dogServices = new DogTable();
             var userId = Auth.GetCurrentUserId();
-            var dog = await _dogServices.GetByUserId(userId);
+            var dog = await _dogServices.GetItemAsync(customPin.DogId);
 
             if (dog.UserId.Equals(userId))
                 await Shell.Current.GoToAsync($"{nameof(RequestInfoPage)}");
             else
-                await Shell.Current.GoToAsync($"{nameof(DetailsDogPage)}?DogId={customPin.DogId}");
+                await Shell.Current.GoToAsync($"{nameof(DetailsRequestPage)}?DogId={customPin.DogId}&RequestId={customPin.RequestId}");
             
         }
 

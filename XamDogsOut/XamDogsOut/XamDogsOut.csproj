@@ -27,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\DetailsRequestPage.xaml.cs">
+      <DependentUpon>DetailsRequestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\EditDogPage.xaml.cs">
       <DependentUpon>EditDogPage.xaml</DependentUpon>
     </Compile>
@@ -36,7 +39,7 @@
     <EmbeddedResource Update="Views\AuthPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\DetailsDogPage.xaml">
+    <EmbeddedResource Update="Views\DetailsRequestPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditProfilePage.xaml">

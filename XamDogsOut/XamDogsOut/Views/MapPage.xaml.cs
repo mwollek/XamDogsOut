@@ -80,6 +80,7 @@ namespace XamDogsOut.Views
                 Label = $"Dog: {dog.Name} | Owner: {sender.UserName +  " " + sender.UserSurname}",
                 Position = position,
                 DogId = dog.Id,
+                RequestId = request.Id,
                 Type = PinType.SavedPin
             };
         }
