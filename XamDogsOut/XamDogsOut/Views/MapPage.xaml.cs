@@ -33,7 +33,7 @@ namespace XamDogsOut.Views
             _profileService = DependencyService.Get<IDataProvider<Profile>>();
             _requestService = DependencyService.Get<IDataProvider<Request>>();
 
-
+            map.CustomPins = new List<CustomPin>();
 
             var assembly = typeof(MapPage);
             addRequestButton.Source = ImageSource.FromResource("XamDogsOut.Assets.Images.paw_s.png", assembly);
@@ -57,23 +57,25 @@ namespace XamDogsOut.Views
             {
                 var pin = await PreparePin(request);
                 map.Pins.Add(pin);
+                map.CustomPins.Add(pin);
             }
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+            map.CustomPins.Clear();
             map.Pins.Clear();
         }
 
-        private async Task<Pin> PreparePin(Request request)
+        private async Task<CustomPin> PreparePin(Request request)
         {
             var profile = await _profileService.GetByUserId(request.SenderId);
             var dog = await _dogService.GetByUserId(request.SenderId);
             var sender = await _profileService.GetByUserId(request.SenderId);
 
             var position = new Position(profile.Lat, profile.Lon);
-            return new Pin()
+            return new CustomPin()
             {
                 Label = $"Dog name: {dog.Name} | Owner: {sender.UserSurname}",
                 Position = position,
