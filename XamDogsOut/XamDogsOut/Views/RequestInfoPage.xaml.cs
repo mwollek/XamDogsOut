@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamDogsOut.Models;
 using XamDogsOut.Services;
+using XamDogsOut.ViewModels;
 
 namespace XamDogsOut.Views
 {
@@ -15,20 +16,24 @@ namespace XamDogsOut.Views
     public partial class RequestInfoPage : ContentPage
     {
 
-        private IDataProvider<Request> _requestService;
+        
+
+        private RequestInfoVM vm;
+
         public RequestInfoPage()
         {
-            _requestService = DependencyService.Get<IDataProvider<Request>>();
             InitializeComponent();
+
+            vm = Resources["vm"] as RequestInfoVM;
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            var idToDelete = (await _requestService.GetItemsAsync()).Where(x => x.SenderId == Auth.GetCurrentUserId()).Select(x => x.Id).FirstOrDefault();
+            base.OnAppearing();
 
-            await _requestService.DeleteItemAsync(idToDelete);
-
-            await Shell.Current.GoToAsync("..");
+            vm.GetRequests();
         }
+
+        
     }
 }

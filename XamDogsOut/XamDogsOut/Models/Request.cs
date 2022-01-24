@@ -9,9 +9,7 @@ namespace XamDogsOut.Models
     public static class RequestStatuses
     {
         public static readonly int Done = 1;
-        public static readonly int Canceled = 2;
         public static readonly int StandBy = 3;
-        public static readonly int InProgress = 4;
 
 
     }
@@ -23,6 +21,7 @@ namespace XamDogsOut.Models
 
         public string SenderId { get; set; }
         public string ExecutorId { get; set; }
+        public DateTime? ExecutionTime { get; set; }
 
         public int Status { get; set; }
 

@@ -177,7 +177,7 @@ namespace XamDogsOut.Views
             // check if user already had posted a request
             var userHasActiveRequest = (await _requestService.GetItemsAsync())
                                             .Where(x => x.SenderId == Auth.GetCurrentUserId())
-                                            .Any(x => x.Status == RequestStatuses.StandBy || x.Status == RequestStatuses.InProgress);
+                                            .Any(x => x.Status == RequestStatuses.StandBy);
 
             if (!userHasActiveRequest)
             {

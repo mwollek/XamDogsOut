@@ -1,12 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamDogsOut.Views.RequestInfoPage">
-    <ContentPage.Content>
-        <StackLayout Margin="10">
-            <Button Text="Delete request" Clicked="Button_Clicked" HorizontalOptions="CenterAndExpand" BackgroundColor="Red">
+             x:Class="XamDogsOut.Views.RequestInfoPage"
+             xmlns:vm="clr-namespace:XamDogsOut.ViewModels">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:RequestInfoVM x:Key="vm">
                 
-            </Button>
-        </StackLayout>
-    </ContentPage.Content>
+            </vm:RequestInfoVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout 
+        Margin="10"
+        BindingContext="{StaticResource vm}">
+
+
+        <Label
+            Padding="5"
+            FontSize="Medium"
+            VerticalOptions="CenterAndExpand"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="Center"
+            Text="{Binding Header}"></Label>
+        <Button 
+            Text="Delete request" 
+            Command="{Binding DeleteRequestCommand}" 
+            HorizontalOptions="FillAndExpand" 
+            BackgroundColor="Red">
+        </Button>
+
+
+
+        <ListView
+            x:Name="LV"
+            CachingStrategy="RecycleElement"
+            Margin="25"
+            ItemsSource="{Binding AcceptedRequests}"
+            SelectionMode="None"
+            HasUnevenRows="True">
+
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label 
+                                    Text="{Binding ExecutorFullName}"
+                                    FontAttributes="Bold"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Start"/>
+                                <Label 
+                                    Grid.Row="1"
+                                    Text="{Binding Address}"/>
+                            </Grid>
+
+                            <Grid
+                                Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Button 
+                                    Command="{Binding SetRequestDoneCommand}"   
+                                    Text="Accept"
+                                    TextColor="White"
+                                    BackgroundColor="ForestGreen">
+                                </Button>
+                            </Grid>
+                            
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>
